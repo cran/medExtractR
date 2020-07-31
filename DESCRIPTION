@@ -1,6 +1,6 @@
 Package: medExtractR
 Title: Extraction of Medication Information from Clinical Text
-Version: 0.1
+Version: 0.2
 Authors@R: 
     c(person("Hannah", "Weeks", role = c("aut", "cre"),
              email = "hannah.l.weeks@vanderbilt.edu"),
@@ -15,12 +15,12 @@ Depends: R (>= 2.10)
 Encoding: UTF-8
 LazyData: true
 Imports: stringr
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1
 NeedsCompilation: no
-Packaged: 2019-06-28 14:57:01 UTC; hannahweeks
+Packaged: 2020-07-30 22:28:48 UTC; hannahweeks
 Author: Hannah Weeks [aut, cre],
   Cole Beck [aut] (<https://orcid.org/0000-0002-6849-6255>),
   Leena Choi [aut]
 Maintainer: Hannah Weeks <hannah.l.weeks@vanderbilt.edu>
 Repository: CRAN
-Date/Publication: 2019-07-01 12:10:03 UTC
+Date/Publication: 2020-07-31 18:40:03 UTC
