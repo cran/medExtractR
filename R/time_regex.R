@@ -1,7 +1,7 @@
 #' Keywords Specifying Time Expressions
 #'
 #' A vector of regular expressions to identify different forms of time
-#' expressions for last dose time. This are the default values used in \code{link{extract_lastdose}}.
+#' expressions for last dose time. These are the default values used in \code{link{extract_lastdose}}.
 #'
 #' Certain expressions which might be considered ambiguous are excluded from
 #' the regular expressions presented here. For instance, expressions such as
@@ -15,10 +15,10 @@
 #'     13:00-23:59.}
 #'   \item{qualifier_after}{Am/pm indication is implicit through a qualifying
 #'     term like \sQuote{last night} or \sQuote{this morning}. The qualifier
-#'     occurs after the time, e.g. \sQuote{10 last night.}}
+#'     occurs after the time, e.g., \sQuote{10 last night.}}
 #'   \item{qualifier_before}{Am/pm indication is implicit through a qualifying
 #'     term like \sQuote{last night} or \sQuote{this morning}. The qualifier
-#'     occurs before the time, e.g. \sQuote{last night at 10.}}
+#'     occurs before the time, e.g., \sQuote{last night at 10.}}
 #'   \item{duration}{Time (in hours) between the last dose and most recent lab
 #'     value}
 #' }

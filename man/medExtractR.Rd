@@ -22,7 +22,7 @@ medExtractR(
 \arguments{
 \item{note}{Text to search.}
 
-\item{drug_names}{Vector of drug names to locate.}
+\item{drug_names}{Vector of drug names of interest to locate.}
 
 \item{window_length}{Length (in number of characters) of window after drug
 in which to look.}
@@ -43,18 +43,37 @@ extracted.}
 \item{strength_sep}{Delimiter for contiguous medication strengths (e.g., \sQuote{-} for \dQuote{LTG 200-300}).}
 
 \item{flag_window}{How far around drug (in number of characters) to look for
-dose change keyword - default fixed to 30.}
+dose change keyword - default fixed to 30. See \sQuote{Details} section below for further explanation.}
 
 \item{dosechange_dict}{List of keywords used to determine if a dose change entity is present.}
 
-\item{\dots}{Parameter settings used in extracting frequency and intake time. Potentially useful
-parameters include \code{freq_dict} and \code{intaketime_dict} (see \code{\dots} argument in
-\code{\link{extract_entities}}) to specify frequency or intake time dictionaries, as well as
-\sQuote{freq_fun} and \sQuote{intaketime_fun} for user-specified extraction functions. See
-\code{\link{extract_entities}} documentation for details.}
+\item{\dots}{Parameter settings used in extracting frequency, intake time, route, and duration. Potentially useful
+parameters include \code{freq_dict}, \code{intaketime_dict}, \code{route_dict}, and \code{duration_dict}
+(see \code{\dots} argument in \code{\link{extract_entities}}) to specify frequency or intake time
+dictionaries, as well as \sQuote{freq_fun}, \sQuote{intaketime_fun}, \sQuote{route_fun}, and
+\sQuote{duration_fun} for user-specified extraction functions. If no additional arguments are provided,
+\code{medExtractR_tapering} will use \code{\link{extract_generic}} and the default dictionary for each entity.
+See \code{\link{extract_entities}} documentation for details.}
 }
 \value{
-data.frame with entity information\cr
+data.frame with entity information. Only extractions from found entities are returned. If no dosing
+information for the drug of interest is found, the following output will be returned: \cr
+\tabular{rrr}{
+entity    \tab  expr   \tab    pos\cr
+NA \tab  NA \tab  NA
+}
+The \dQuote{entity} column of the output contains the formatted label for that entity, according to
+the following mapping.\cr
+drug name: \dQuote{DrugName}\cr
+strength: \dQuote{Strength}\cr
+dose amount: \dQuote{DoseAmt}\cr
+dose strength: \dQuote{DoseStrength}\cr
+frequency: \dQuote{Frequency}\cr
+intake time: \dQuote{IntakeTime}\cr
+duration: \dQuote{Duration}\cr
+route: \dQuote{Route}\cr
+dose change: \dQuote{DoseChange}\cr
+time of last dose: \dQuote{LastDose}\cr
 Sample output:\cr
 \tabular{rrr}{
 entity    \tab  expr   \tab    pos\cr
@@ -62,8 +81,9 @@ DoseChange\tab  decrease \tab  66:74\cr
 DrugName   \tab Prograf \tab   78:85\cr
 Strength  \tab  2 mg   \tab    86:90\cr
 DoseAmt   \tab  1     \tab     91:92\cr
-Frequency \tab  bid    \tab    101:104\cr
-LastDose  \tab  2100    \tab   121:125\cr
+Route   \tab  by mouth     \tab     100:108\cr
+Frequency \tab  bid    \tab    109:112\cr
+LastDose  \tab  2100    \tab   129:133
 }
 }
 \description{
@@ -76,7 +96,7 @@ approaches, and dictionaries to identify various drug entities of interest.
 Specific medications to be found are specified with \code{drug_names}, which
 is not case-sensitive or space-sensitive (e.g., \sQuote{lamotrigine XR} is treated
 the same as \sQuote{lamotrigineXR}). Entities to be extracted include drug name, strength,
-dose amount, dose, frequency, intake time, and time of last dose. See
+dose amount, dose, frequency, intake time, route, duration, and time of last dose. See
 \code{\link{extract_entities}} and \code{\link{extract_lastdose}} for more details.
 
 When searching for medication names of interest, fuzzy matching may be used.
@@ -85,30 +105,37 @@ such matches. If using fuzzy matching, any drug name with less than 5
 characters will only allow an edit distance of 1, regardless of the value of
 \code{max_dist}.
 
+The purpose of the \code{drug_list} argument is to reduce false positives by removing information that is
+likely to be related to a competing drug, not our drug of interest, By default, this is \dQuote{rxnorm} which
+calls \code{data(rxnorm_druglist)}. A custom drug list in the form of a character string can be supplied instead,
+or can be appended to \code{rxnorm_druglist} by specifying \code{drug_list = c("rxnorm", custom_drug_list)}.
+\code{medExtractR} then uses this list to truncate the search window at the first appearance of an unrelated drug name.
+This uses publicly available data courtesy of the U.S. National Library of Medicine (NLM), National
+Institutes of Health, Department of Health and Human Services; NLM is not responsible for the product and
+does not endorse or recommend this or any other product. See \code{rxnorm_druglist} documentation for details.
+
 Most medication entities are searched for in a window after the drug. The
 dose change entity, or presence of a keyword to indicate a non-current drug
 regimen, may occur before the drug name. The \code{flag_window} argument
-adjusts the width of the pre-drug window.
+adjusts the width of the pre-drug window. Both \code{flag_window} and \code{dosechange_dict}
+are not default arguments to the extended function \code{\link{medExtractR_tapering}} since that
+extension uses a more flexible search window and extraction procedure. In the tapering extension,
+entity extraction is more flexible, and any entity can be extracted either before
+or after the drug mention. Thus functionality for dose change identification is identical to all
+other dictionary-based entities.
 
 The \code{stength_sep} argument is \code{NULL} by default, but can be used to
 identify shorthand for morning and evening doses. For example, consider the
 phrase \sQuote{Lamotrigine 300-200} (meaning 300 mg in the morning and 200 mg
 in the evening). The argument \code{strength_sep = '-'} identifies
-the full expression \emph{300-200} as \emph{dose} in this phrase.
-
-By default, the \code{drug_list} argument is \dQuote{rxnorm} which calls \code{data(rxnorm_druglist)}.
-A custom drug list in the form of a character string can be supplied instead, or can be appended
-to \code{rxnorm_druglist} by specifying \code{drug_list = c("rxnorm", custom_drug_list)}. This uses
-publicly available data courtesy of the U.S. National Library of Medicine (NLM), National
-Institutes of Health, Department of Health and Human Services; NLM is not responsible for the product and
-does not endorse or recommend this or any other product. See \code{rxnorm_druglist} documentation for details.
+the full expression \emph{300-200} as \emph{dose strength} in this phrase.
 }
 \examples{
 \donttest{
 note1 <- "Progrf Oral Capsule 1 mg 3 capsules by mouth twice a day - last
 dose at 10pm"
-note2 <- "Currently on lamotrigine 150-200, but will increase to lamotrigine 200mg bid"
 medExtractR(note1, c("prograf", "tacrolimus"), 60, "mg", 2, lastdose=TRUE)
+note2 <- "Currently on lamotrigine 150-200, but will increase to lamotrigine 200mg bid"
 medExtractR(note2, c("lamotrigine", "ltg"), 130, "mg", 1, strength_sep = "-")
 }
 }
