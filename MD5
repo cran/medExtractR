@@ -1,4 +1,4 @@
-2854d507f830ca6b26182166d02e0a97 *DESCRIPTION
+51c20b4b83cefef6c187135a40b6df3d *DESCRIPTION
 574843aa349bd7b6e9c75f9539236134 *NAMESPACE
 e67e923a4a2e0bedff61943ca47867f9 *NEWS.md
 8e15dabfaa04adab73266bbba72a39ca *R/addl_expr.R
@@ -12,7 +12,7 @@ aea9c7aa9954a2fa0063a863ce6f8998 *R/extract_generic.R
 577dfa8ec793cda199f1585afb00d01c *R/frequency_vals.R
 ac6b74d16b34e62b9717a58cc9b26764 *R/intaketime_vals.R
 2756ff88fce2f68f9a40d64bb27af6e5 *R/medExtractR-package.R
-a5dea8c4e397c6b25bb57fae0f1f490f *R/medExtractR.R
+0289575c99e95f710d9fbe331a892717 *R/medExtractR.R
 d5cfd9e2aa8d0bd08d1585c5f221a7e9 *R/medExtractR_tapering.R
 467c2f183e713ec861ef5dbac46e4c44 *R/preposition_vals.R
 af01533544189a243a4d6b3520ed68bc *R/route_vals.R
@@ -26,7 +26,7 @@ fb97c93995f9f86d6666cf3c0062645f *R/timekeyword_vals.R
 a9723acb43e43a0542d6dae9e890eae0 *R/transition_vals.R
 bbe36663172bb3a5c39deeef451d232e *R/utils.R
 22473aec03ea0c4f9024a8a76d874a90 *README.md
-4ecdd6dc88b42545306e4de32a919500 *build/vignette.rds
+1a70b3212340c374976cac1650ed2230 *build/vignette.rds
 db02cd9704a23af1727bb0ae4be391c7 *data/addl_expr.rda
 2863ee5758e93d28429f189311e56d53 *data/dosechange_vals.rda
 3c0edb62033cbf2262ede3d344922787 *data/doseschedule_vals.rda
@@ -41,13 +41,13 @@ cb39de5c3cdce55d52fdf27c3e4765e6 *data/duration_vals.rda
 eb8912c957cc71ed661c9d1bb6175d39 *data/transition_vals.rda
 b8390edbb9c39ddc10e25a7a3d6a9174 *inst/doc/mxr_basic_vignette.R
 648b4acd204441b70c360e56f75c5261 *inst/doc/mxr_basic_vignette.Rmd
-47d9c096769d211abf439831f55760ea *inst/doc/mxr_basic_vignette.html
+ec358a0802aef9bf934b6c3798327f39 *inst/doc/mxr_basic_vignette.pdf
 ca633371b10e31692a2d86bb674d679b *inst/doc/mxr_drug_list.R
 1b1ec9b9167b2ad6b4be49e102af25c6 *inst/doc/mxr_drug_list.Rmd
-4a9164eedf1ca06b0dff52c890b71aab *inst/doc/mxr_drug_list.html
+52c1f56c12559b1e12e8de0cac31aa59 *inst/doc/mxr_drug_list.pdf
 4a1ef053668d2987d84ee21f96d07f46 *inst/doc/mxr_tapering_vignette.R
 3372986a95acbea9883b40de229447d7 *inst/doc/mxr_tapering_vignette.Rmd
-49f9b740ab63942472552dac44e44ef2 *inst/doc/mxr_tapering_vignette.html
+879ba9f3dc67fda415113f707822f6b2 *inst/doc/mxr_tapering_vignette.pdf
 d36c6f721de909d45b2a260d29feb15d *inst/examples/lampid1_2016-02-05_note4_1.txt
 8bbaf4e029e297125c9a830bcba6de2f *inst/examples/lampid1_2016-02-05_note5_1.txt
 e7088b9343dcabbe20af4b8bfa05a2dd *inst/examples/lampid2_2008-07-20_note6_1.txt
